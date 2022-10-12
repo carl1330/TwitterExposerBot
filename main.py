@@ -5,3 +5,5 @@ from twitter_handler import *
 data = open_json("secrets.json")
 api = create_tweepy_object(data)
 start_bot(data["discord"]["token"], api)
+
+

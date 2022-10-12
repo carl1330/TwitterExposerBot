@@ -22,26 +22,48 @@ def start_bot(token, api):
         if message.content.startswith(COMMAND_PREFIX + ' tweet '):
             message_array = message.content.split()
             try:
-                user = get_user(api, message_array[-1])
-                tweets = get_user_tweets(api, user)
-                string = get_tweet_url(get_random_tweet(tweets))
-                await message.channel.send(string)
+                if len(message_array) == 3:
+                    await create_tweet_message(message, message_array[-1], 0)
+                else:
+                    await create_tweet_message(message, message_array[2], int(message_array[-1]))
             except tweepy.TweepyException as e:
                 await message.channel.send(e.api_messages[0])
+
         if message.content.startswith(COMMAND_PREFIX + ' like '):
             message_array = message.content.split()
             try:
-                user = get_user(api, message_array[-1])
-                tweets = get_user_likes(api, user)
-                string = get_tweet_url(get_random_tweet(tweets))
-                await message.channel.send(string)
+                if len(message_array) == 3:
+                    await create_like_message(message, message_array[-1], 0)
+                else:
+                    await create_like_message(message, message_array[2], int(message_array[-1]))
             except tweepy.TweepyException as e:
                 await message.channel.send(e.api_messages[0])
 
         if message.content.startswith(COMMAND_PREFIX + ' help'):
             await message.channel.send("```\n"
-                                       "!t tweet [USERNAME]\n"
-                                       "!t like [USERNAME]"
+                                       "!t tweet [USERNAME] [SINCE]\n"
+                                       "!t like [USERNAME] [SINCE]\n"
+                                       "Higher number will post older tweets (earliest 2015)"
                                        "```\n")
+
+    async def create_tweet_message(message, username, i):
+        user = get_user(api, username)
+        tweets = get_user_tweets(api, user, i)
+        try:
+            tweet = get_random_tweet(tweets)
+            string = get_tweet_url(tweet)
+            await message.channel.send(string)
+        except IndexError as e:
+            await message.channel.send(e)
+
+    async def create_like_message(message, username, i):
+        user = get_user(api, username)
+        tweets = get_user_likes(api, user, i)
+        try:
+            tweet = get_random_tweet(tweets)
+            string = get_tweet_url(tweet)
+            await message.channel.send(string)
+        except IndexError as e:
+            await message.channel.send(e)
 
     client.run(token)
