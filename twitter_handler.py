@@ -21,6 +21,17 @@ def create_tweepy_object(data):
     return tweepy.API(auth)
 
 
-def get_user(twitter_api, user_name):
-    return twitter_api.get_user(screen_name=user_name)
+def get_user(api, user_name):
+    return api.get_user(screen_name=user_name)
 
+
+def get_user_tweets(api, user, count):
+    return api.user_timeline(user_id=user.id, count=count)
+
+def get_tweet_url(tweet):
+    return "https://twitter.com/"+ tweet.user.screen_name + "/status/" + str(tweet.id)
+
+
+def print_tweets(api, tweets):
+    for tweet in tweets:
+        print(tweet.text)
