@@ -43,7 +43,8 @@ def start_bot(token, api):
             await message.channel.send("```\n"
                                        "!t tweet [USERNAME] [SINCE]\n"
                                        "!t like [USERNAME] [SINCE]\n"
-                                       "Higher number will post older tweets (earliest 2015)"
+                                       "Since is a number between 0-7\n"
+                                       "A higher number will result in earlier tweets (earliest 2015)"
                                        "```\n")
 
     async def create_tweet_message(message, username, i):
