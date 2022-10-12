@@ -22,8 +22,8 @@ def get_user(api, user_name):
 
 
 def get_user_tweets(api, user, tid=0, count=200):
-    if tid > len(TID_TIME_ARRAY):
-        tid = len(TID_TIME_ARRAY)
+    if tid > len(TID_TIME_ARRAY) - 1:
+        tid = -1
 
     if tid == 0:
         return api.user_timeline(user_id=user.id, count=count)
@@ -32,8 +32,8 @@ def get_user_tweets(api, user, tid=0, count=200):
 
 
 def get_user_likes(api, user, tid=0, count=200):
-    if tid > len(TID_TIME_ARRAY):
-        tid = len(TID_TIME_ARRAY)
+    if tid > len(TID_TIME_ARRAY) - 1:
+        tid = -1
 
     if tid == 0:
         return api.get_favorites(user_id=user.id, count=count)
