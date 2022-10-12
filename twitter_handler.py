@@ -25,8 +25,13 @@ def get_user(api, user_name):
     return api.get_user(screen_name=user_name)
 
 
-def get_user_tweets(api, user, count):
+def get_user_tweets(api, user, count=100):
     return api.user_timeline(user_id=user.id, count=count)
+
+
+def get_user_likes(api, user, count=100):
+    return api.get_favorites(user_id=user.id, count=count)
+
 
 def get_tweet_url(tweet):
     return "https://twitter.com/"+ tweet.user.screen_name + "/status/" + str(tweet.id)
