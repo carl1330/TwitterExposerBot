@@ -1,4 +1,6 @@
 import discord
+import tweepy
+
 from twitter_handler import *
 
 COMMAND_PREFIX = "!t"
@@ -36,6 +38,11 @@ def start_bot(token, api):
                     await create_like_message(message, message_array[-1], 0)
                 else:
                     await create_like_message(message, message_array[2], int(message_array[-1]))
+            except tweepy.TweepyException as e:
+                await message.channel.send(e.api_messages[0])
+        if message.content.startswith("!sigma"):
+            try:
+                await create_tweet_message(message, "SigmaMemes_69",  0)
             except tweepy.TweepyException as e:
                 await message.channel.send(e.api_messages[0])
 
