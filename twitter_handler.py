@@ -1,15 +1,5 @@
 import tweepy
-import json
-
-
-def open_json(file):
-    try:
-        with open(file, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-    except FileNotFoundError as e:
-        print(e)
-        exit()
-    return data
+import random
 
 
 def create_tweepy_object(data):
@@ -40,3 +30,7 @@ def get_tweet_url(tweet):
 def print_tweets(api, tweets):
     for tweet in tweets:
         print(tweet.text)
+
+
+def get_random_tweet(tweets):
+    return random.choice(tweets)
