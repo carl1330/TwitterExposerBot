@@ -38,4 +38,10 @@ def start_bot(token, api):
             except tweepy.TweepyException as e:
                 await message.channel.send(e.api_messages[0])
 
+        if message.content.startswith(COMMAND_PREFIX + ' help'):
+            await message.channel.send("```\n"
+                                       "!t tweet [USERNAME]\n"
+                                       "!t like [USERNAME]"
+                                       "```\n")
+
     client.run(token)
