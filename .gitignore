@@ -1,0 +1,6 @@
+secrets.json
+/venv
+/lib
+/lib64
+.idea/
+__pycache__/
